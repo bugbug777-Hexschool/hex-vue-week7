@@ -11,7 +11,13 @@ const routes = [
   },
   {
     path: '/admin',
-    component: () => import('../views/DashboardView.vue'),
+    component: () => import('../views/admin/DashboardView.vue'),
+    children: [
+      {
+        path: 'products',
+        component: () => import('../views/admin/ProductsView.vue'),
+      },
+    ],
   },
 ];
 
