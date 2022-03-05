@@ -16,16 +16,18 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Products</a>
+            <router-link to="/admin/products" class="nav-link active" aria-current="page"
+              >Products</router-link
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Orders</a>
+            <router-link to="/admin/orders" class="nav-link">Orders</router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Coupons</a>
+            <router-link to="/admin/coupons" class="nav-link">Coupons</router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Articles</a>
+            <router-link to="/admin/articles" class="nav-link">Articles</router-link>
           </li>
         </ul>
       </div>
