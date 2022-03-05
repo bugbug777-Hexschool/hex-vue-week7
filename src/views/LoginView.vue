@@ -37,6 +37,8 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
+
 export default {
   data() {
     return {
@@ -61,8 +63,14 @@ export default {
           }
         })
         .catch((err) => {
-          alert('登入失敗！');
-          console.log(err.response);
+          if (!err.response.data.success) {
+            Swal.fire({
+              text: '請檢查帳號或密碼有無錯誤！！',
+              icon: 'error',
+              showConfirmButton: false,
+              timer: 1000,
+            });
+          }
         });
     },
   },
