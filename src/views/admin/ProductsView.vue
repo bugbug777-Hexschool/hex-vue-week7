@@ -36,7 +36,7 @@
     </table>
   </div>
   <!-- Modal -->
-  <ProductModal ref="productModal" />
+  <ProductModal ref="productModal" @update="get_products" />
 </template>
 
 <script>
