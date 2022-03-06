@@ -4,7 +4,7 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 import {
   Field, Form, ErrorMessage,
-  defineRule,
+  defineRule, configure,
 } from 'vee-validate';
 import { required, email, min } from '@vee-validate/rules';
 import App from './App.vue';
@@ -14,6 +14,11 @@ import router from './router';
 defineRule('required', required);
 defineRule('email', email);
 defineRule('min', min);
+
+// Vee Config
+configure({
+  validateOnInput: true,
+});
 
 // Main App
 const app = createApp(App);

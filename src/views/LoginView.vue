@@ -5,31 +5,37 @@
       <div class="row justify-content-center align-items-center | h-100">
         <div class="col-3">
           <h1 class="text-center | mb-3">管理員登入</h1>
-          <div class="form-floating | mb-3">
-            <input
-              v-model="user.username"
-              type="email"
-              id="email"
-              name="email"
-              placeholder="請輸入帳號"
-              class="form-control"
-            />
-            <label for="email">帳號</label>
-          </div>
-          <div class="form-floating | mb-3">
-            <input
-              v-model="user.password"
-              type="password"
-              id="password"
-              name="password"
-              placeholder="請輸入帳號"
-              class="form-control"
-            />
-            <label for="password">密碼</label>
-          </div>
-          <div class="text-end">
-            <button @click="login" type="button" class="btn btn-primary w-100">登入</button>
-          </div>
+          <v-form @submit="login">
+            <div class="form-floating | mb-3">
+              <v-field
+                v-model="user.username"
+                type="email"
+                id="email"
+                name="email"
+                rules="email|required"
+                placeholder="請輸入帳號"
+                class="form-control"
+              />
+              <label for="email">帳號</label>
+              <error-message name="email"></error-message>
+            </div>
+            <div class="form-floating | mb-3">
+              <v-field
+                v-model="user.password"
+                type="password"
+                id="password"
+                name="password"
+                rules="required"
+                placeholder="請輸入帳號"
+                class="form-control"
+              />
+              <label for="password">密碼</label>
+              <error-message name="password"></error-message>
+            </div>
+            <div class="text-end">
+              <button type="submit" class="btn btn-primary w-100">登入</button>
+            </div>
+          </v-form>
         </div>
       </div>
     </div>
