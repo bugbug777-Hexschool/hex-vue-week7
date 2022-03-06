@@ -208,7 +208,10 @@
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
             取消
           </button>
-          <button @click="add_product" type="button" class="btn btn-primary">確認</button>
+          <button v-if="isNew" @click="add_product" type="button" class="btn btn-primary">
+            確認
+          </button>
+          <button v-else @click="edit_product" type="button" class="btn btn-primary">儲存</button>
         </div>
       </div>
     </div>
@@ -223,14 +226,17 @@ export default {
     return {
       modal: '',
       product: {},
+      isNew: false,
     };
   },
   methods: {
     open_modal(status, item) {
       if (status === 'new') {
+        this.isNew = true;
         this.product = {}; // when add a new product, clean the data
         this.modal.show();
       } else if (status === 'edit') {
+        this.isNew = false;
         this.product = { ...item };
         this.modal.show();
       }
@@ -240,6 +246,21 @@ export default {
       const data = this.product;
       this.$http
         .post(api, { data })
+        .then((res) => {
+          if (res.data.success) {
+            this.$emit('update');
+            this.modal.hide();
+          }
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    },
+    edit_product() {
+      const api = `${process.env.VUE_APP_BASE}/v2/api/${process.env.VUE_APP_PATH}/admin/product/${this.product.id}`;
+      const data = this.product;
+      this.$http
+        .put(api, { data })
         .then((res) => {
           if (res.data.success) {
             this.$emit('update');
