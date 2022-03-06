@@ -34,7 +34,13 @@
               >
                 編輯
               </button>
-              <button type="button" class="btn btn-outline-danger btn-sm">刪除</button>
+              <button
+                @click="open_modal('delete', product)"
+                type="button"
+                class="btn btn-outline-danger btn-sm"
+              >
+                刪除
+              </button>
             </div>
           </td>
         </tr>
@@ -43,14 +49,17 @@
   </div>
   <!-- Modal -->
   <ProductModal ref="productModal" @update="get_products" />
+  <DelProductModal ref="delProductModal" @update="get_products" />
 </template>
 
 <script>
 import ProductModal from '@/components/ProductModal.vue';
+import DelProductModal from '@/components/DelProductModal.vue';
 
 export default {
   components: {
     ProductModal,
+    DelProductModal,
   },
   data() {
     return {
@@ -73,6 +82,8 @@ export default {
         this.$refs.productModal.open_modal(status);
       } else if (status === 'edit') {
         this.$refs.productModal.open_modal(status, item);
+      } else {
+        this.$refs.delProductModal.open_modal(item);
       }
     },
   },
