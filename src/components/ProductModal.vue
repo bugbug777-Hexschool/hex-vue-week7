@@ -226,9 +226,14 @@ export default {
     };
   },
   methods: {
-    open_modal() {
-      this.product = {}; // when add a new product, clean the data
-      this.modal.show();
+    open_modal(status, item) {
+      if (status === 'new') {
+        this.product = {}; // when add a new product, clean the data
+        this.modal.show();
+      } else if (status === 'edit') {
+        this.product = { ...item };
+        this.modal.show();
+      }
     },
     add_product() {
       const api = `${process.env.VUE_APP_BASE}/v2/api/${process.env.VUE_APP_PATH}/admin/product`;

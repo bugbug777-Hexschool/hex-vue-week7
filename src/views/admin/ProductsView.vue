@@ -2,7 +2,7 @@
   <div class="container | p-3">
     <h1 class="mb-4">產品列表</h1>
     <div class="text-end | mb-4">
-      <button @click="open_modal" type="button" class="btn btn-primary">建立新的產品</button>
+      <button @click="open_modal('new')" type="button" class="btn btn-primary">建立新的產品</button>
     </div>
     <table class="table">
       <thead>
@@ -27,7 +27,13 @@
           </td>
           <td>
             <div class="btn-group">
-              <button type="button" class="btn btn-outline-primary btn-sm">編輯</button>
+              <button
+                @click="open_modal('edit', product)"
+                type="button"
+                class="btn btn-outline-primary btn-sm"
+              >
+                編輯
+              </button>
               <button type="button" class="btn btn-outline-danger btn-sm">刪除</button>
             </div>
           </td>
@@ -62,8 +68,12 @@ export default {
         }
       });
     },
-    open_modal() {
-      this.$refs.productModal.open_modal();
+    open_modal(status, item) {
+      if (status === 'new') {
+        this.$refs.productModal.open_modal(status);
+      } else if (status === 'edit') {
+        this.$refs.productModal.open_modal(status, item);
+      }
     },
   },
   mounted() {
