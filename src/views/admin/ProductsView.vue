@@ -2,7 +2,7 @@
   <div class="container | p-3">
     <h1 class="mb-4">產品列表</h1>
     <div class="text-end | mb-4">
-      <button class="btn btn-primary">建立新的產品</button>
+      <button @click="open_modal" type="button" class="btn btn-primary">建立新的產品</button>
     </div>
     <table class="table">
       <thead>
@@ -36,7 +36,7 @@
     </table>
   </div>
   <!-- Modal -->
-  <ProductModal />
+  <ProductModal ref="productModal" />
 </template>
 
 <script>
@@ -61,6 +61,9 @@ export default {
           this.pagination = res.data.pagination;
         }
       });
+    },
+    open_modal() {
+      this.$refs.productModal.open_modal();
     },
   },
   mounted() {

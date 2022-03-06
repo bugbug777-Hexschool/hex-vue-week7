@@ -123,3 +123,23 @@
     </div>
   </div>
 </template>
+
+<script>
+import Modal from 'bootstrap/js/dist/modal';
+
+export default {
+  data() {
+    return {
+      modal: '',
+    };
+  },
+  methods: {
+    open_modal() {
+      this.modal.show();
+    },
+  },
+  mounted() {
+    this.modal = new Modal(this.$refs.productModal);
+  },
+};
+</script>
