@@ -35,10 +35,17 @@
       </tbody>
     </table>
   </div>
+  <!-- Modal -->
+  <ProductModal />
 </template>
 
 <script>
+import ProductModal from '@/components/ProductModal.vue';
+
 export default {
+  components: {
+    ProductModal,
+  },
   data() {
     return {
       products: [],
