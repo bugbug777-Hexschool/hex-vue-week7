@@ -5,32 +5,34 @@
       <div class="row justify-content-center align-items-center | h-100">
         <div class="col-3">
           <h1 class="text-center | mb-3">管理員登入</h1>
-          <v-form @submit="login">
+          <v-form @submit="login" v-slot="{ errors }">
             <div class="form-floating | mb-3">
               <v-field
                 v-model="user.username"
                 type="email"
                 id="email"
-                name="帳號"
+                name="email"
                 rules="email|required"
                 placeholder="請輸入帳號"
                 class="form-control"
+                :class="{ 'is-invalid': errors['email'] }"
               />
               <label for="email">帳號</label>
-              <error-message name="帳號"></error-message>
+              <error-message name="email" class="invalid-feedback"></error-message>
             </div>
             <div class="form-floating | mb-3">
               <v-field
                 v-model="user.password"
                 type="password"
                 id="password"
-                name="密碼"
+                name="password"
                 rules="required"
                 placeholder="請輸入帳號"
                 class="form-control"
+                :class="{ 'is-invalid': errors['password'] }"
               />
               <label for="password">密碼</label>
-              <error-message name="密碼"></error-message>
+              <error-message name="password" class="invalid-feedback"></error-message>
             </div>
             <div class="text-end">
               <button type="submit" class="btn btn-primary w-100">登入</button>
