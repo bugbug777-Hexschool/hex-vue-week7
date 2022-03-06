@@ -11,26 +11,26 @@
                 v-model="user.username"
                 type="email"
                 id="email"
-                name="email"
+                name="帳號"
                 rules="email|required"
                 placeholder="請輸入帳號"
                 class="form-control"
               />
               <label for="email">帳號</label>
-              <error-message name="email"></error-message>
+              <error-message name="帳號"></error-message>
             </div>
             <div class="form-floating | mb-3">
               <v-field
                 v-model="user.password"
                 type="password"
                 id="password"
-                name="password"
+                name="密碼"
                 rules="required"
                 placeholder="請輸入帳號"
                 class="form-control"
               />
               <label for="password">密碼</label>
-              <error-message name="password"></error-message>
+              <error-message name="密碼"></error-message>
             </div>
             <div class="text-end">
               <button type="submit" class="btn btn-primary w-100">登入</button>

@@ -7,6 +7,8 @@ import {
   defineRule, configure,
 } from 'vee-validate';
 import { required, email, min } from '@vee-validate/rules';
+import { localize } from '@vee-validate/i18n';
+import zhTw from '@vee-validate/i18n/dist/locale/zh_TW.json';
 import App from './App.vue';
 import router from './router';
 
@@ -17,6 +19,7 @@ defineRule('min', min);
 
 // Vee Config
 configure({
+  generateMessage: localize('zh', zhTw),
   validateOnInput: true,
 });
 
