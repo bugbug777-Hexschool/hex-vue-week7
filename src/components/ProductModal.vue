@@ -50,7 +50,7 @@
                       v-model="product.imagesUrl[index]"
                       type="text"
                       class="form-control"
-                      :placeholder="`請輸入圖片 ${index+1} 連結`"
+                      :placeholder="`請輸入圖片 ${index + 1} 連結`"
                     />
                   </div>
                   <img
@@ -87,101 +87,120 @@
             </div>
             <!-- 新增產品資料 -->
             <div class="col-sm-8">
-              <div class="mb-3">
-                <label for="title" class="form-label">標題</label>
-                <input
-                  v-model="product.title"
-                  id="title"
-                  type="text"
-                  class="form-control"
-                  placeholder="請輸入標題"
-                />
-              </div>
-
-              <div class="row">
-                <div class="mb-3 col-md-6">
-                  <label for="category" class="form-label">分類</label>
-                  <input
-                    v-model="product.category"
-                    id="category"
+              <v-form v-slot="{ errors }">
+                <div class="mb-3">
+                  <label for="title" class="form-label">標題</label>
+                  <v-field
+                    v-model="product.title"
+                    id="title"
                     type="text"
                     class="form-control"
-                    placeholder="請輸入分類"
+                    rules="required"
+                    name="Title"
+                    :class="{ 'is-invalid': errors['Title'] }"
+                    placeholder="請輸入標題"
                   />
+                  <error-message name="Title" class="invalid-feedback"></error-message>
                 </div>
-                <div class="mb-3 col-md-6">
-                  <label for="price" class="form-label">單位</label>
-                  <input
-                    v-model="product.unit"
-                    id="unit"
+                <div class="row">
+                  <div class="mb-3 col-md-6">
+                    <label for="category" class="form-label">分類</label>
+                    <v-field
+                      v-model="product.category"
+                      id="category"
+                      type="text"
+                      class="form-control"
+                      rules="required"
+                      name="Category"
+                      :class="{ 'is-invalid': errors['Category'] }"
+                      placeholder="請輸入分類"
+                    />
+                    <error-message name="Category" class="invalid-feedback"></error-message>
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label for="price" class="form-label">單位</label>
+                    <v-field
+                      v-model="product.unit"
+                      id="unit"
+                      type="text"
+                      class="form-control"
+                      rules="required"
+                      name="Unit"
+                      :class="{ 'is-invalid': errors['Unit'] }"
+                      placeholder="請輸入單位"
+                    />
+                    <error-message name="Unit" class="invalid-feedback"></error-message>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="mb-3 col-md-6">
+                    <label for="origin_price" class="form-label">原價</label>
+                    <v-field
+                      v-model.number="product.origin_price"
+                      id="origin_price"
+                      type="number"
+                      min="0"
+                      class="form-control"
+                      rules="required"
+                      name="OriginPrice"
+                      :class="{ 'is-invalid': errors['OriginPrice'] }"
+                      placeholder="請輸入原價"
+                    />
+                    <error-message name="OriginPrice" class="invalid-feedback"></error-message>
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label for="price" class="form-label">售價</label>
+                    <v-field
+                      v-model.number="product.price"
+                      id="price"
+                      type="number"
+                      min="0"
+                      class="form-control"
+                      rules="required"
+                      name="Price"
+                      :class="{ 'is-invalid': errors['Price'] }"
+                      placeholder="請輸入售價"
+                    />
+                    <error-message name="Price" class="invalid-feedback"></error-message>
+                  </div>
+                </div>
+                <hr />
+                <div class="mb-3">
+                  <label for="description" class="form-label">產品描述</label>
+                  <textarea
+                    v-model="product.description"
+                    id="description"
                     type="text"
                     class="form-control"
-                    placeholder="請輸入單位"
-                  />
+                    placeholder="請輸入產品描述"
+                  >
+                  </textarea>
                 </div>
-              </div>
-
-              <div class="row">
-                <div class="mb-3 col-md-6">
-                  <label for="origin_price" class="form-label">原價</label>
-                  <input
-                    v-model.number="product.origin_price"
-                    id="origin_price"
-                    type="number"
-                    min="0"
+                <div class="mb-3">
+                  <label for="content" class="form-label">說明內容</label>
+                  <textarea
+                    v-model="product.content"
+                    id="description"
+                    type="text"
                     class="form-control"
-                    placeholder="請輸入原價"
-                  />
+                    placeholder="請輸入說明內容"
+                  >
+                  </textarea>
                 </div>
-                <div class="mb-3 col-md-6">
-                  <label for="price" class="form-label">售價</label>
-                  <input
-                    v-model.number="product.price"
-                    id="price"
-                    type="number"
-                    min="0"
-                    class="form-control"
-                    placeholder="請輸入售價"
-                  />
+                <div class="mb-3">
+                  <div class="form-check">
+                    <input
+                      v-model="product.is_enabled"
+                      id="is_enabled"
+                      class="form-check-input"
+                      type="checkbox"
+                      :true-value="1"
+                      :false-value="0"
+                    />
+                    <label class="form-check-label" for="is_enabled">是否啟用</label>
+                  </div>
                 </div>
-              </div>
-              <hr />
-
-              <div class="mb-3">
-                <label for="description" class="form-label">產品描述</label>
-                <textarea
-                  v-model="product.description"
-                  id="description"
-                  type="text"
-                  class="form-control"
-                  placeholder="請輸入產品描述"
-                >
-                </textarea>
-              </div>
-              <div class="mb-3">
-                <label for="content" class="form-label">說明內容</label>
-                <textarea
-                  v-model="product.content"
-                  id="description"
-                  type="text"
-                  class="form-control"
-                  placeholder="請輸入說明內容"
-                >
-                </textarea>
-              </div>
-              <div class="mb-3">
-                <div class="form-check">
-                  <input
-                    v-model="product.is_enabled"
-                    id="is_enabled"
-                    class="form-check-input"
-                    type="checkbox"
-                    :true-value="1"
-                    :false-value="0"
-                  />
-                  <label class="form-check-label" for="is_enabled">是否啟用</label>
-                </div>
-              </div>
+              </v-form>
             </div>
           </div>
         </div>
