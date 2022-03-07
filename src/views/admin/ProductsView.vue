@@ -73,7 +73,7 @@ export default {
     };
   },
   methods: {
-    get_products(currentPage) {
+    get_products(currentPage = 1) {
       const api = `${process.env.VUE_APP_BASE}/v2/api/${process.env.VUE_APP_PATH}/admin/products?page=${currentPage}`;
       this.$http.get(api).then((res) => {
         if (res.data.success) {
