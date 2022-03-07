@@ -47,7 +47,7 @@
       </tbody>
     </table>
     <div class="d-flex justify-content-end">
-      <Pagination />
+      <Pagination :pagination="pagination" @update="get_products" />
     </div>
   </div>
   <!-- Modal -->
@@ -73,8 +73,8 @@ export default {
     };
   },
   methods: {
-    get_products() {
-      const api = `${process.env.VUE_APP_BASE}/v2/api/${process.env.VUE_APP_PATH}/admin/products`;
+    get_products(currentPage) {
+      const api = `${process.env.VUE_APP_BASE}/v2/api/${process.env.VUE_APP_PATH}/admin/products?page=${currentPage}`;
       this.$http.get(api).then((res) => {
         if (res.data.success) {
           this.products = res.data.products;
