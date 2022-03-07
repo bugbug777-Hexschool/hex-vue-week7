@@ -4,7 +4,7 @@
     <div class="text-end | mb-4">
       <button @click="open_modal('new')" type="button" class="btn btn-primary">建立新的產品</button>
     </div>
-    <table class="table">
+    <table class="table | mb-4">
       <thead>
         <tr>
           <th width="120">分類</th>
@@ -46,6 +46,9 @@
         </tr>
       </tbody>
     </table>
+    <div class="d-flex justify-content-end">
+      <Pagination />
+    </div>
   </div>
   <!-- Modal -->
   <ProductModal ref="productModal" @update="get_products" />
@@ -55,11 +58,13 @@
 <script>
 import ProductModal from '@/components/ProductModal.vue';
 import DelProductModal from '@/components/DelProductModal.vue';
+import Pagination from '@/components/PaginationComponent.vue';
 
 export default {
   components: {
     ProductModal,
     DelProductModal,
+    Pagination,
   },
   data() {
     return {
