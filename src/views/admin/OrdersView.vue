@@ -35,6 +35,8 @@
       </tbody>
     </table>
   </div>
+  <!-- Modal -->
+  <OrderModal ref="orderModal" />
 </template>
 
 <script>
