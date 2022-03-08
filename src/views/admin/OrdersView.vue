@@ -6,8 +6,8 @@
         <tr>
           <th width="120">建立日期</th>
           <th width="120">訂單編號</th>
-          <th width="100">付款狀態</th>
-          <th width="200">購買品項</th>
+          <th width="240">購買品項</th>
+          <th width="120">付款狀態</th>
           <th width="120">其他操作</th>
         </tr>
       </thead>
@@ -16,16 +16,16 @@
           <td>{{ new Date(order.create_at * 1000).toISOString().split('T')[0] }}</td>
           <td>{{ order.id }}</td>
           <td>
-            <!-- 利用圖案取代文字 -->
-            <span v-if="order.is_paid" class="text-success">已付款</span>
-            <span v-else>未付款</span>
-          </td>
-          <td>
             <ul class="ps-0 mb-0">
               <li v-for="product in order.products" :key="product.id" class="list-unstyled">
                 {{ `${product.product.title} * ${product.qty} ${product.product.unit}` }}
               </li>
             </ul>
+          </td>
+          <td>
+            <!-- 利用圖案取代文字 -->
+            <span v-if="order.is_paid" class="text-success">已付款</span>
+            <span v-else>未付款</span>
           </td>
           <td>
             <button type="button" class="btn btn-sm btn-primary | me-1">詳細資訊</button>
