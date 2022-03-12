@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkdemo"]=self["webpackChunkdemo"]||[]).push([[197],{9197:function(n,e,r){r.r(e),r.d(e,{default:function(){return f}});var u=r(3396);const t={class:"container | p-3"},c=(0,u._)("h1",null,"Coupons",-1),o=[c];function s(n,e){return(0,u.wg)(),(0,u.iD)("div",t,o)}var a=r(89);const i={},d=(0,a.Z)(i,[["render",s]]);var f=d}}]);
+//# sourceMappingURL=197.c8f7f61b.js.map
