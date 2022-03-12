@@ -28,19 +28,35 @@
             <span v-else>未付款</span>
           </td>
           <td>
-            <button type="button" class="btn btn-sm btn-primary | me-1">詳細資訊</button>
-            <button type="button" class="btn btn-sm btn-outline-danger">刪除</button>
+            <button
+              @click="open_modal(order, 'edit')"
+              type="button"
+              class="btn btn-sm btn-primary | me-1"
+            >
+              詳細資訊
+            </button>
+            <button @click="open_modal(order)" type="button" class="btn btn-sm btn-outline-danger">
+              刪除
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
   <!-- Modal -->
-  <OrderModal ref="orderModal" />
+  <OrderModal ref="orderModal" @update="get_orders" />
+  <DelOrderModal ref="delOrderModal" @update="get_orders" />
 </template>
 
 <script>
+import OrderModal from '@/components/OrderModal.vue';
+import DelOrderModal from '@/components/DelOrderModal.vue';
+
 export default {
+  components: {
+    OrderModal,
+    DelOrderModal,
+  },
   data() {
     return {
       orders: [],
@@ -56,6 +72,13 @@ export default {
           this.pagination = res.data.pagination;
         }
       });
+    },
+    open_modal(order, status) {
+      if (status === 'edit') {
+        this.$refs.orderModal.open_modal(order);
+      } else {
+        this.$refs.delOrderModal.open_modal(order);
+      }
     },
   },
   mounted() {
