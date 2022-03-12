@@ -42,6 +42,10 @@
         </tr>
       </tbody>
     </table>
+    <!-- Pagination -->
+    <div class="d-flex justify-content-end">
+      <Pagination :pagination="pagination" @update="get_orders" />
+    </div>
   </div>
   <!-- Modal -->
   <OrderModal ref="orderModal" @update="get_orders" />
@@ -51,11 +55,13 @@
 <script>
 import OrderModal from '@/components/OrderModal.vue';
 import DelOrderModal from '@/components/DelOrderModal.vue';
+import Pagination from '@/components/PaginationComponent.vue';
 
 export default {
   components: {
     OrderModal,
     DelOrderModal,
+    Pagination,
   },
   data() {
     return {
@@ -64,8 +70,8 @@ export default {
     };
   },
   methods: {
-    get_orders() {
-      const api = `${process.env.VUE_APP_BASE}/v2/api/${process.env.VUE_APP_PATH}/admin/orders`;
+    get_orders(currentPage = 1) {
+      const api = `${process.env.VUE_APP_BASE}/v2/api/${process.env.VUE_APP_PATH}/admin/orders?page=${currentPage}`;
       this.$http.get(api).then((res) => {
         if (res.data.success) {
           this.orders = res.data.orders;
