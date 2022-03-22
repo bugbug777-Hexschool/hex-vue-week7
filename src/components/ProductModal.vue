@@ -34,6 +34,20 @@
                     placeholder="請輸入主要圖片連結"
                   />
                 </div>
+                <!-- 上傳圖片 -->
+                <div v-if="!product.imageUrl" class="input-group | mb-3">
+                  <input
+                    type="file"
+                    class="form-control"
+                    ref="file"
+                    id="file"
+                    aria-describedby="uploadImg"
+                    aria-label="Upload"
+                  />
+                  <button @click="upload_image" class="btn btn-outline-secondary" type="button">
+                    上傳圖片
+                  </button>
+                </div>
                 <img
                   v-if="product.imageUrl"
                   class="img-fluid img-control"
@@ -42,6 +56,7 @@
                   style="height: 200px"
                 />
               </div>
+
               <h2>新增多圖</h2>
               <div v-if="Array.isArray(product.imagesUrl)">
                 <div v-for="(imageUrl, index) in product.imagesUrl" :key="index + 123">
@@ -281,6 +296,17 @@ export default {
     },
     del_image() {
       this.product.imagesUrl.pop();
+    },
+    upload_image() {
+      const api = `${process.env.VUE_APP_BASE}/v2/api/${process.env.VUE_APP_PATH}/admin/upload`;
+      const file = this.$refs.file.files[0];
+      const formData = new FormData();
+      formData.append('file-to-upload', file);
+      this.$http.post(api, formData).then((res) => {
+        if (res.data.success) {
+          this.product.imageUrl = res.data.imageUrl;
+        }
+      });
     },
   },
   mounted() {

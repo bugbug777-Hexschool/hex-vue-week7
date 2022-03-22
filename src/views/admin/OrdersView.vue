@@ -28,17 +28,41 @@
             <span v-else>未付款</span>
           </td>
           <td>
-            <button type="button" class="btn btn-sm btn-primary | me-1">詳細資訊</button>
-            <button type="button" class="btn btn-sm btn-outline-danger">刪除</button>
+            <button
+              @click="open_modal(order, 'edit')"
+              type="button"
+              class="btn btn-sm btn-primary | me-1"
+            >
+              詳細資訊
+            </button>
+            <button @click="open_modal(order)" type="button" class="btn btn-sm btn-outline-danger">
+              刪除
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
+    <!-- Pagination -->
+    <div class="d-flex justify-content-end">
+      <Pagination :pagination="pagination" @update="get_orders" />
+    </div>
   </div>
+  <!-- Modal -->
+  <OrderModal ref="orderModal" @update="get_orders" />
+  <DelOrderModal ref="delOrderModal" @update="get_orders" />
 </template>
 
 <script>
+import OrderModal from '@/components/OrderModal.vue';
+import DelOrderModal from '@/components/DelOrderModal.vue';
+import Pagination from '@/components/PaginationComponent.vue';
+
 export default {
+  components: {
+    OrderModal,
+    DelOrderModal,
+    Pagination,
+  },
   data() {
     return {
       orders: [],
@@ -46,14 +70,21 @@ export default {
     };
   },
   methods: {
-    get_orders() {
-      const api = `${process.env.VUE_APP_BASE}/v2/api/${process.env.VUE_APP_PATH}/admin/orders`;
+    get_orders(currentPage = 1) {
+      const api = `${process.env.VUE_APP_BASE}/v2/api/${process.env.VUE_APP_PATH}/admin/orders?page=${currentPage}`;
       this.$http.get(api).then((res) => {
         if (res.data.success) {
           this.orders = res.data.orders;
           this.pagination = res.data.pagination;
         }
       });
+    },
+    open_modal(order, status) {
+      if (status === 'edit') {
+        this.$refs.orderModal.open_modal(order);
+      } else {
+        this.$refs.delOrderModal.open_modal(order);
+      }
     },
   },
   mounted() {

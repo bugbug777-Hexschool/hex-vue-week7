@@ -14,23 +14,35 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav | w-100">
           <li class="nav-item">
             <router-link to="/admin/products" class="nav-link active" aria-current="page"
-              >Products</router-link
+              >產品</router-link
             >
           </li>
-          <li class="nav-item">
-            <router-link to="/admin/orders" class="nav-link">Orders</router-link>
+          <li class="nav-item | me-auto">
+            <router-link to="/admin/orders" class="nav-link">訂單</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/admin/coupons" class="nav-link">Coupons</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/admin/articles" class="nav-link">Articles</router-link>
+            <a @click.prevent="logout" href="#" class="nav-link">登出</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
 </template>
+
+<script>
+export default {
+  methods: {
+    logout() {
+      const api = `${process.env.VUE_APP_BASE}/v2/logout`;
+      this.$http.post(api).then((res) => {
+        if (res.data.success) {
+          this.$router.replace('/login');
+        }
+      });
+    },
+  },
+};
+</script>

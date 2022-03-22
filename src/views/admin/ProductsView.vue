@@ -4,7 +4,7 @@
     <div class="text-end | mb-4">
       <button @click="open_modal('new')" type="button" class="btn btn-primary">建立新的產品</button>
     </div>
-    <table class="table">
+    <table class="table | mb-4">
       <thead>
         <tr>
           <th width="120">分類</th>
@@ -46,6 +46,9 @@
         </tr>
       </tbody>
     </table>
+    <div class="d-flex justify-content-end">
+      <Pagination :pagination="pagination" @update="get_products" />
+    </div>
   </div>
   <!-- Modal -->
   <ProductModal ref="productModal" @update="get_products" />
@@ -55,11 +58,13 @@
 <script>
 import ProductModal from '@/components/ProductModal.vue';
 import DelProductModal from '@/components/DelProductModal.vue';
+import Pagination from '@/components/PaginationComponent.vue';
 
 export default {
   components: {
     ProductModal,
     DelProductModal,
+    Pagination,
   },
   data() {
     return {
@@ -68,8 +73,8 @@ export default {
     };
   },
   methods: {
-    get_products() {
-      const api = `${process.env.VUE_APP_BASE}/v2/api/${process.env.VUE_APP_PATH}/admin/products`;
+    get_products(currentPage = 1) {
+      const api = `${process.env.VUE_APP_BASE}/v2/api/${process.env.VUE_APP_PATH}/admin/products?page=${currentPage}`;
       this.$http.get(api).then((res) => {
         if (res.data.success) {
           this.products = res.data.products;
